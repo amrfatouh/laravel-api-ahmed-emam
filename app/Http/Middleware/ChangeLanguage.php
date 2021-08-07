@@ -4,19 +4,20 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckPassword
+class ChangeLanguage
 {
   /**
    * Handle an incoming request.
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  \Closure  $next
+   * @return mixed
    */
   public function handle($request, Closure $next)
   {
-    if ($request->api_password === null || $request->api_password !== env('API_PASSWORD', 'tlV5xIEea6TEj2hwZBa0HvSV')) {
-      return response()->json(['message' => 'Unauthenticated']);
-    }
+    app()->setlocale('ar');
+    if (isset($request->lang) && $request->lang === 'en')
+      app()->setlocale('en');
     return $next($request);
   }
 }

@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
       $table->bigIncrements('id');
       $table->string('ar_name');
       $table->string('en_name');
+      $table->boolean('active');
       $table->timestamp('created_at');
       $table->timestamp('updated_at');
     });
