@@ -27,11 +27,15 @@ Route::group(['middleware' => ['api', 'checkPassword', 'changeLanguage'], 'names
     Route::post('logout', 'AuthController@logout')->middleware('auth.guard:admin-api');
   });
 
-  Route::group(['prefix' => 'user', 'middleware' => 'auth.guard:user-api'], function () {
-    Route::post('profile', function () {
-      return 'the user profile';
+  Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
+    Route::post('login', 'AuthController@login');
+    Route::group(['middleware' => 'auth.guard:user-api'], function () {
+      Route::post('profile', function () {
+        return 'the user profile';
+      });
     });
   });
+
 });
 
 Route::group(['middleware' => ['api', 'checkPassword', 'changeLanguage', 'checkAdminToken:admin-api'], 'namespace' => 'Api'], function () {
