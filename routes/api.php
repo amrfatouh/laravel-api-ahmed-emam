@@ -31,7 +31,7 @@ Route::group(['middleware' => ['api', 'checkPassword', 'changeLanguage'], 'names
     Route::post('login', 'AuthController@login');
     Route::group(['middleware' => 'auth.guard:user-api'], function () {
       Route::post('profile', function () {
-        return 'the user profile';
+        return \Auth::user();
       });
     });
   });
